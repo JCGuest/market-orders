@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_02_010718) do
+ActiveRecord::Schema.define(version: 2019_12_02_164832) do
 
   create_table "orders", force: :cascade do |t|
     t.string "customer_name"
     t.string "item"
     t.string "amount"
-    t.string "pick_up"
     t.integer "user_id"
+    t.date "pick_up_date"
   end
 
   create_table "users", force: :cascade do |t|
