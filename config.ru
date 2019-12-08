@@ -1,7 +1,6 @@
 require './config/environment'
 
-use SessionsController
-# use UserController
-# use OrderController
+use UserController
+use OrdersController
 use Rack::MethodOverride
 run ApplicationController

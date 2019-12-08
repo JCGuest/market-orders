@@ -1,0 +1,22 @@
+<h1 align="center">Delete Order <%=@order.id%></h1>
+<table style="width:50%" border="4"  align="center" >
+     <tr>
+          <th>Number</th>
+          <th> Customer Name</th>
+          <th>Item</th>
+          <th>Amount</th>
+          <th>Pick Up Date</th>
+    </tr>
+    <tr>
+        <td><%=@order.id%></td>
+        <td><%=@order.customer_name%></td>
+        <td><%=@order.item%></td>
+        <td><%=@order.amount%></td>
+        <td><%=@order.pick_up_date%></td>
+    </tr>
+</table>
+<br><br>
+<form align="center" method="POST" action="/delete/<%=@order.id%>">
+    <input id="hidden" type="hidden" name="_method" value="DELETE">
+    <input type="submit" value="Delete Order">
+  </form>

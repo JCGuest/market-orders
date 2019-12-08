@@ -1,0 +1,8 @@
+<h1>Error Page</h1>
+<%if @error%>
+    <%@error.each do |error|%>
+        <li><%=error%></li>
+        <%end%>
+        <%end%>
+
+<h3>Please return to <a href="/home">Home.</a></h3>
