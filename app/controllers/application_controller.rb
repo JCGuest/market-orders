@@ -18,8 +18,17 @@ class ApplicationController < Sinatra::Base
 
   #destroy
   delete '/delete/:id' do
-    Order.destroy(params[:id])
-    redirect to "/orders"
+    if logged_in?
+      @order = Order.find_by(:id => params[:id])
+      if @order.user = current_user
+      @order.destroy
+      redirect to "/orders"
+      else 
+        redirect to "/orders"
+      end
+    else
+      redirect to "/login"
+    end
   end
 
   get '/' do 
