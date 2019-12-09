@@ -4,10 +4,9 @@ class OrdersController < ApplicationController
 get '/orders' do
     if logged_in? 
       @user = User.find_by(:id => session[:user_id]) 
-      # order = Order.find_by(user_id: session[:user_id])
       if @user.orders
         @show_orders = @user.orders.all
-      erb :'order/show'
+        erb :'order/show'
       else 
         redirect '/orders/new'
       end
@@ -30,7 +29,7 @@ end
   post "/orders" do
     if logged_in?
       if params[:customer_name] == "" || params[:item] == "" || params[:amount] == "" || params[:pick_up_date] == ""
-        redirect to "/orders/new" , locals: {message: "Something went wrong. Please submit order again"}
+        redirect to "/orders/new"
       else
         @order = Order.new(order_params)
         @order.user_id = session[:user_id]
@@ -39,7 +38,7 @@ end
         redirect to "/orders/all"
       end
     else
-      redirect to "/login", locals: [message: "Please log in before submitting new orders."]
+      redirect to "/login"
     end
   end
 
@@ -55,10 +54,14 @@ end
     end
   end
 
-  get "/orders/:id" do 
+  get "/orders/:id/delete" do 
     if logged_in?
       @order = Order.find_by(:id => params[:id])
-      erb :'order/by_id'
+      if @order.user == current_user
+        erb :'order/delete'
+      else
+        redirect to '/orders'
+      end
     else
       redirect to "/login"
     end
@@ -69,10 +72,10 @@ end
     if logged_in?
       @show_orders = Order.find(params[:id])
       if @show_orders.user == current_user
-      erb :'/order/edit'
+        erb :'/order/edit'
       else
         redirect to 'orders/all'
-    end
+      end
     else
       redirect to "/login"
     end
