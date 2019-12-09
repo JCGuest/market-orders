@@ -1,20 +1,28 @@
 <h1 align="center">Edit Order #<%=@show_orders.id%></h1>
+<hr>
 
-
+<div class="container">
 <form action="/orders/<%= @show_orders.id %>" method="POST" align="center">
     <input type="hidden" name="_method" value="PATCH">
+    
         <p><label for="customer_name">Customer Name</label></p>
-        <input id="customer_name" type="text" name="order[customer_name]" value="<%= @show_orders.customer_name %>" />
+        <input  type="text" name="order[customer_name]" value="<%= @show_orders.customer_name %>"></input>
         <p><label for="item">Item</label></p>
-        <input id="item" type="text" name="order[item]"  value="<%= @show_orders.item %>"></input>
+        <input type="text" name="order[item]"  value="<%= @show_orders.item %>"></input>
         <p><label for="amount">Amount</label></p>
-        <input id="amount" type="text" name="order[amount"  value="<%= @show_orders.amount %>"></input>
+        <input type="text" name="order[amount]"  value="<%= @show_orders.amount %>"></input>
         <p><label for="pickup_date">Pickup Date</label></p>
-        <input id="pick_up_date" type="date" name="order[pick_up_date]"  value="<%= @show_orders.pick_up_date %>"></input>
+        <input type="date" name="order[pick_up_date]"  value="<%= @show_orders.pick_up_date %>"></input>
       <br>
       <br>
-    <input type="submit" value="Update" />
+      <div align="center">
+    <input type="submit" value="Update" class="btn btn-succes" />
+    </div>
+    <hr>
   </form>
+</div>  
   <br><br>
-  <h4 align="center"><a href="/orders/new">New Order</a><br>
-    <a href="/logout">Logout</a></h4>
+  <div align="center">
+      <button type="button" class="btn btn-dark"><h3><a href="/orders/new">New Order</a></button>
+      <button type="button" class="btn btn-dark"><h3><a href="/logout">Logout</a></h3></button>
+      </div>

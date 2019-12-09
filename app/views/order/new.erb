@@ -1,17 +1,18 @@
 <h1 align="center">New Order</h1>
-<% unless locals.empty? %>
- <h3 align="center"> <%= message %> </h3>
-<% end %>
+<hr>
+<br>
+<div class="container">
 <form action="/orders" method="POST" align="center">
-            <p><label for="customer_name">Customer Name</label></p>
-            <input id="customer_name" type="text" name="customer_name"></input>
-            <p><label for="item">Item</label></p>
-            <input id="item" type="text" name="item"></input>
-            <p><label for="amount">Amount</label></p>
-            <input id="amount" type="text" name="amount"></input>
-            <p><label for="pick_up_date">Pick Up Date</label></p>
-            <input id="pick_up_date" type="date" name="pick_up_date"></input>
+            <p><label for="customer_name">Customer Name:</label></p>
+            <input type="text" name="customer_name"></input>
+            <p><label for="item">Item:</label></p>
+            <input type="text" name="item"></input>
+            <p><label for="amount">Amount:</label></p>
+            <input type="text" name="amount"></input>
+            <p><label for="pick_up_date">Pick Up Date:</label></p>
+            <input type="date" name="pick_up_date"></input>    
             
-<br><br>
-        <input type="submit" value="Submit" />
+<hr><br>
+        <input align="center" type="submit" value="Submit" />
       </form>
+      </div>>

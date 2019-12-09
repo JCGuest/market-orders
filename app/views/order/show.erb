@@ -1,26 +1,29 @@
+<hr>
 <h1 align="center">Welcome, <%=@user.username.capitalize%></h1>
 <h2 align="center">Here are your orders</h2>
-
+<hr>
   <%if @show_orders.empty?%>
   <h3 align="center">You have no orders</h3>
   <%else%>
-<table style="width:50%" border="2"  align="center" >
-     <tr>
-          <th>Number</th>
-          <th> Customer Name</th>
-          <th>Item</th>
-          <th>Amount</th>
-          <th>Pick Up Date</th>
+  
+<table style="width:90%"  align="center" class="table table-bordered">
+  <thead>   
+  <tr>
+          <th scope="col">Number</th>
+          <th scope="col"> Customer Name</th>
+          <th scope="col">Item</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Pick Up Date</th>
     </tr>
+  </thead>
 
         <% @show_orders.each do |o|%>
-       
+       <tbody>
         <tr>
-          <td>
-              <%=o.id%>
+          <th scope="row"><%=o.id%>
               <h5><a href="/orders/<%=o.id%>/edit">edit</a></h5>
-              <h5><a href="/orders/<%=o.id%>">delete</a></h5>
-            </td>
+              <h5><a href="/orders/<%=o.id%>/delete">delete</a></h5>
+          </th>
           <td><%=o.customer_name%></td>
           <td><%=o.item%></td>
           <td><%=o.amount%></td>
@@ -28,6 +31,16 @@
         </tr>
         <%end%>
         <%end%>
+      </tbody>
       </table>
-<h3 align="center"><a href="/orders/new">New Order</a><br>
-    <a href="/logout">Logout</a></h3>
+      <br>
+      <hr>
+      <div align="center">
+      <button type="button" class="btn btn-dark"><h3><a href="/orders/new">New Order</a></button>
+      <button type="button" class="btn btn-dark"><h3><a href="/logout">Logout</a></h3></button>
+      </div>
+
+
+
+
+
