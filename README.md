@@ -1,6 +1,6 @@
 
 ## Decription
-I created this to be used at my job at a Whole Foods Market meat market. It is Sinatra/ActiveRecord application. you can create an account with a secure password, create orders, edit orders, and delete orders.
+I created this to be used at my job at a Whole Foods Market meat market. It is a Sinatra/ActiveRecord application. You can create an account with a secure password, create orders, edit orders, and delete orders.
 
 ## Installation
 
@@ -17,10 +17,7 @@ And then execute:
 Or install it yourself as:
 
     $ gem install market-orders 
-
-## Usage
-
-This gem has 'shotgun' enabled. You can run  `shotgun` in the top directory to start a local server that you can then visit in your web browser of choice.  
+      
 
 ## Built With
 
