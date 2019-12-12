@@ -1,9 +1,12 @@
-<hr>
+<br>
+<br>
+
 <h1 align="center">Welcome, <%=@user.username.capitalize%></h1>
-<h2 align="center">Here are your orders</h2>
+<br>
 <hr>
+<br>
   <%if @show_orders.empty?%>
-  <h3 align="center">You have no orders</h3>
+  <h5 align="center">You have no orders</h5>
   <%else%>
   
 <table style="width:90%"  align="center" class="table table-bordered">
@@ -16,18 +19,17 @@
           <th scope="col">Pick Up Date</th>
     </tr>
   </thead>
-
-        <% @show_orders.each do |o|%>
+  <% @show_orders.each do |o|%>
        <tbody>
         <tr>
           <th scope="row"><%=o.id%>
-              <h5><a href="/orders/<%=o.id%>/edit">edit</a></h5>
-              <h5><a href="/orders/<%=o.id%>/delete">delete</a></h5>
+            <h5><a href="/orders/<%=o.id%>/edit">edit</a></h5>
+            <h5><a href="/orders/<%=o.id%>/delete">delete</a></h5>
           </th>
-          <td><%=o.customer_name%></td>
-          <td><%=o.item%></td>
-          <td><%=o.amount%></td>
-          <td><%=o.pick_up_date%></td>
+            <td><%=o.customer_name%></td>
+            <td><%=o.item%></td>
+            <td><%=o.amount%></td>
+            <td><%=o.pick_up_date%></td>
         </tr>
         <%end%>
         <%end%>
@@ -35,9 +37,10 @@
       </table>
       <br>
       <hr>
+      <br>
       <div align="center">
-      <button type="button" class="btn btn-dark"><h3><a href="/orders/new">New Order</a></button>
-      <button type="button" class="btn btn-dark"><h3><a href="/logout">Logout</a></h3></button>
+        <button type="button" class="btn btn-dark"><h3><a href="/orders/new">New Order</a></button>
+        <button type="button" class="btn btn-dark"><h3><a href="/logout">Logout</a></h3></button>
       </div>
 
 
