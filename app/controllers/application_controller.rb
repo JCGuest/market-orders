@@ -9,16 +9,16 @@ class ApplicationController < Sinatra::Base
     set :session_secret, "wfm_market"
   end
 
-  #edit
+  # update
   patch "/orders/:id" do
     @order = Order.find_by(:id => params[:id])
     @order.update(params[:order])
     redirect to "/orders/all"
   end
 
-  #destroy
+  # delete
   delete '/delete/:id' do
-    if logged_in?
+    redirect_if_not_logged_in
       @order = Order.find_by(:id => params[:id])
       if @order.user == current_user
         @order.destroy
@@ -26,9 +26,6 @@ class ApplicationController < Sinatra::Base
       else 
         redirect to "/orders"
       end
-    else
-      redirect to "/login"
-    end
   end
 
   get '/' do 
@@ -48,6 +45,12 @@ class ApplicationController < Sinatra::Base
 
   def current_user
     @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
+  end
+
+  def redirect_if_not_logged_in
+    if !logged_in?
+      redirect to "/login"
+    end
   end
 
 end

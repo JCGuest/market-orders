@@ -1,84 +1,58 @@
 require 'byebug'
 class OrdersController < ApplicationController
 
+# index
 get '/orders' do
-    if logged_in? 
-      @user = User.find_by(:id => session[:user_id]) 
-      if @user.orders
-        @show_orders = @user.orders.all
-        erb :'order/show'
-      else 
-        redirect '/orders/new'
-      end
-    else
-      redirect to "/login"
-    end 
+  redirect_if_not_logged_in
+    @user = User.find_by(:id => session[:user_id]) 
+    if @user.orders
+      @show_orders = @user.orders.all
+      erb :'order/index'
+    else 
+      redirect '/orders/new'
+    end
 end
 
  # new
  get "/orders/new" do
-    if logged_in?
+    redirect_if_not_logged_in
       @order = Order.new
       erb :'/order/new'
-    else
-      redirect to "/login"
-    end
   end
 
   # create
   post "/orders" do
-    if logged_in?
       if params[:customer_name] == "" || params[:item] == "" || params[:amount] == "" || params[:pick_up_date] == ""
         redirect to "/orders/new"
       else
+        #@order = current_user.orders.create
         @order = Order.new(order_params)
         @order.user_id = session[:user_id]
         @order.save
         current_user.orders << @order
-        redirect to "/orders/all"
+        redirect to "/orders"
       end
-    else
-      redirect to "/login"
-    end
   end
 
 
-  # show all
-  get "/orders/all" do
-    if logged_in?
+  # show
+  get "/orders/:id" do
+    redirect_if_not_logged_in
       @user = User.find_by(:id => session[:user_id])
-      @show_orders = @user.orders
+      @order = Order.find_by_id(params[:id])
       erb :'/order/show'
-    else
-      redirect to "/login"
-    end
   end
 
-  get "/orders/:id/delete" do 
-    if logged_in?
-      @order = Order.find_by(:id => params[:id])
-      if @order.user == current_user
-        erb :'order/delete'
-      else
-        redirect to '/orders'
-      end
-    else
-      redirect to "/login"
-    end
-  end
 
   #edit
   get '/orders/:id/edit' do
-    if logged_in?
+    redirect_if_not_logged_in
       @show_orders = Order.find(params[:id])
       if @show_orders.user == current_user
         erb :'/order/edit'
       else
-        redirect to 'orders/all'
+        redirect to '/orders'
       end
-    else
-      redirect to "/login"
-    end
   end
 
 
