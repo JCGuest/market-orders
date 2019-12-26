@@ -1,11 +1,15 @@
 <br>
 <br>
 
-<h1 align="center">Welcome, <%=@user.username.capitalize%></h1>
+<h1 align="center">Welcome, <%=@user.username.capitalize%>.</h1>
 <br>
 <hr>
 <br>
-  <%if @show_orders.empty?%>
+<% if flash[:message] %>
+    <h3>
+    <small class="text-muted"><%=flash[:message]%></small></h3></p>
+    <%end%>
+  <%if @orders.empty?%>
   <h5 align="center">You have no orders</h5>
   <%else%>
   
@@ -19,7 +23,7 @@
           <th scope="col">Pick Up Date</th>
     </tr>
   </thead>
-  <% @show_orders.each do |o|%>
+  <% @orders.each do |o|%>
        <tbody>
         <tr>
           <th scope="row"><%=o.id%>

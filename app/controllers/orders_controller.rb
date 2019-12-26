@@ -1,16 +1,11 @@
-require 'byebug'
 class OrdersController < ApplicationController
 
 # index
 get '/orders' do
   redirect_if_not_logged_in
-    @user = User.find_by(:id => session[:user_id]) 
-    if @user.orders
-      @show_orders = @user.orders.all
+    @user = current_user
+      @orders = @user.orders.all
       erb :'order/index'
-    else 
-      redirect '/orders/new'
-    end
 end
 
  # new
@@ -25,11 +20,7 @@ end
       if params[:customer_name] == "" || params[:item] == "" || params[:amount] == "" || params[:pick_up_date] == ""
         redirect to "/orders/new"
       else
-        #@order = current_user.orders.create
-        @order = Order.new(order_params)
-        @order.user_id = session[:user_id]
-        @order.save
-        current_user.orders << @order
+        @order = current_user.orders.create(order_params)
         redirect to "/orders"
       end
   end
@@ -38,7 +29,7 @@ end
   # show
   get "/orders/:id" do
     redirect_if_not_logged_in
-      @user = User.find_by(:id => session[:user_id])
+      @user = current_user
       @order = Order.find_by_id(params[:id])
       erb :'/order/show'
   end
@@ -47,8 +38,8 @@ end
   #edit
   get '/orders/:id/edit' do
     redirect_if_not_logged_in
-      @show_orders = Order.find(params[:id])
-      if @show_orders.user == current_user
+      @order = Order.find(params[:id])
+      if @order.user == current_user
         erb :'/order/edit'
       else
         redirect to '/orders'

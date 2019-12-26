@@ -1,5 +1,6 @@
 require './config/environment'
-
+require 'sinatra/base'
+require 'sinatra/flash'
 class ApplicationController < Sinatra::Base
 
   configure do
@@ -7,13 +8,22 @@ class ApplicationController < Sinatra::Base
     set :views, 'app/views'
     enable :sessions
     set :session_secret, "wfm_market"
+    register Sinatra::Flash
+  end
+
+  get '/' do 
+    if logged_in?
+      redirect to "/orders"
+    else
+      erb :home
+    end
   end
 
   # update
   patch "/orders/:id" do
     @order = Order.find_by(:id => params[:id])
     @order.update(params[:order])
-    redirect to "/orders/all"
+    redirect to "/orders"
   end
 
   # delete
@@ -22,20 +32,12 @@ class ApplicationController < Sinatra::Base
       @order = Order.find_by(:id => params[:id])
       if @order.user == current_user
         @order.destroy
+        flash[:message] = "Order ##{@order.id} permantly deleted"
         redirect to "/orders"
       else 
         redirect to "/orders"
       end
   end
-
-  get '/' do 
-    erb :home
-  end
-
-  get '/error' do 
-    erb :error
-  end
-
 
   helpers do 
 

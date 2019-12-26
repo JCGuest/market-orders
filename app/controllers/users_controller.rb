@@ -1,4 +1,4 @@
-require 'byebug'
+require "byebug"
 class UserController < ApplicationController
 
     get '/signup' do
@@ -38,6 +38,7 @@ class UserController < ApplicationController
           session[:user_id] = user.id
           redirect to "/orders"
         else
+          flash[:message] = "Your credentials are not valid!"
           redirect '/signup'
         end
       end

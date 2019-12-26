@@ -13,6 +13,10 @@
 
     <label for="password">Password:  </label>
     <input type="password" name="password">
+    <% if flash[:message] %>
+    <h3>
+    <small class="text-muted"><%=flash[:message]%></small></h3></p>
+    <%end%>
     <hr>
     <br>
     <input type="submit" value="Sign Up" >
